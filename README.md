@@ -1,5 +1,6 @@
 # hass-telebot
 Bot for the Telegram messaging platform providing an interface to the Home Assistant automation system
+Built using Telepot (http://telepot.readthedocs.io/en/latest/)
 
 ## Instructions
 
@@ -43,3 +44,6 @@ For now you need to edit the code to put the entitities you want to see in /stat
 ```
 devices = ['alarm_control_panel.ha_alarm']
 ```
+
+## Service/Daemon Mode
+Erm right now I've not done anything for this. I just been running it the background with nohup :)
