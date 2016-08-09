@@ -33,6 +33,7 @@ print(remote.validate_api(api))
 print('-- Available services:')
 services = remote.get_services(api)
 for service in services:
+    print(service['domain'])
     print(service['services'])
 
 # instance the Telegram bot
@@ -54,6 +55,12 @@ def get_state (entity_id):
 def service_call (domain, service, payload):
   remote.call_service(api, domain, service, payload)
 
+def refresh_services ():
+  services = remote.get_services(api)
+  for service in services:
+    print(service['domain'])
+    #print(service['services'])
+
 # handle the incoming Telegram message
 def handle(msg):
 
@@ -73,6 +80,16 @@ def handle(msg):
           bot.sendMessage(chat_id, str(datetime.datetime.now()))
       elif command == '/start':
           bot.sendMessage(chat_id, 'hola!')
+      elif command == '/refreshservices':
+          # refreshes the list of available domains/services from the server
+          refresh_services()
+          bot.sendMessage(chat_id, "Service list refreshed")
+      elif command == '/domains':
+          # lists avaiable domains
+          domain_str = ""
+          for service in services:
+            domain_str = domain_str + service['domain'] + '\n'
+          bot.sendMessage(chat_id,domain_str)
       elif command == '/states':
           for s in devices:
             state = get_state(s)
