@@ -39,3 +39,7 @@ Currrent commands are
 /alarmaway
 /disarm
 ```
+For now you need to edit the code to put the entitities you want to see in /states
+```
+devices = ['alarm_control_panel.ha_alarm']
+```
