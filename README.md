@@ -35,6 +35,9 @@ Currrent commands are
 /roll
 /states
 /menu (brings up a custom keyboard of the other commands)
+/refreshservices (refreshes the list of domains/services from HASS)
+/domains (lists the current HASS domains)
+/browsedomains (presents the domains as a custom keyboard - start of dynamic browsing)
 /alarm (brings up a custom keyboard of alarm controls)
 /alarmhome
 /alarmaway
