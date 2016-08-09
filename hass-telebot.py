@@ -90,6 +90,19 @@ def handle(msg):
           for service in services:
             domain_str = domain_str + service['domain'] + '\n'
           bot.sendMessage(chat_id,domain_str)
+      elif command == '/browsedomains':
+          # lists avaiable domains on custom keyboard
+          keyboard = []
+          for service in services:
+            key_item = [{"text":service['domain']}]
+            keyboard.append(key_item)
+
+          replymarkup = {
+            "keyboard": keyboard,
+            "resize_keyboard": True,
+            "one_time_keyboard": True
+          }
+          bot.sendMessage(chat_id,"Pick a domain....",reply_markup=replymarkup)
       elif command == '/states':
           for s in devices:
             state = get_state(s)
