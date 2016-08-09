@@ -25,19 +25,24 @@ ha_alarm_code = config['ha_alarm_code']
 bot_token = config['bot_token']
 allowed_chat_id = config['allowed_chat_id']
 
+# instance the API connection to HASS
 api = remote.API(ha_url, ha_key, ha_port, ha_ssl)
 print(remote.validate_api(api))
 
+# this prints out all the HASS services - mostly here for testing atm
 print('-- Available services:')
 services = remote.get_services(api)
 for service in services:
     print(service['services'])
 
+# instance the Telegram bot
 bot = telepot.Bot(bot_token)
 
 # Devices to load info from
 devices = ['alarm_control_panel.ha_alarm']
 
+# calls the HASS API to get the state of an entity
+# need to change this so you can pass in entity type so we can get the right attributes for display
 def get_state (entity_id):
   entity = remote.get_state(api, entity_id)
   state = format('{} is {}.'.format(entity.attributes['friendly_name'], entity.state))
@@ -45,14 +50,18 @@ def get_state (entity_id):
   print(state)
   return state
 
+# calls a HASS service
 def service_call (domain, service, payload):
   remote.call_service(api, domain, service, payload)
 
+# handle the incoming Telegram message
 def handle(msg):
 
+    # glance to get some meta on the message
     content_type, chat_type, chat_id = telepot.glance(msg)
     print(content_type, chat_type, chat_id)
 
+    # we only want to process text messages from our specified chat
     if (content_type == 'text') and (chat_id == int(allowed_chat_id)):
       command = msg['text']
 
