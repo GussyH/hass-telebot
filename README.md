@@ -6,7 +6,10 @@ Built using Telepot (http://telepot.readthedocs.io/en/latest/). That doc has ins
 
 Download hass-telebot.py and install in a python virtualenv
 
-You may need to 'pip3 install' a few things (like homeassistant, telepot, argparse, configobj)
+Install requirements:
+```
+pip3.5 install -r requirements.txt
+```
 
 Create hass-telebot.cfg with entries as follows:
 
