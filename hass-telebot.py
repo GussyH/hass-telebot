@@ -21,6 +21,7 @@ ha_url = config['ha_url']
 ha_key = config['ha_key']
 ha_port = config['ha_port']
 ha_ssl = config['ha_ssl']
+ha_alarm_entity = config['ha_alarm_entity']
 ha_alarm_code = config['ha_alarm_code']
 bot_token = config['bot_token']
 allowed_chat_id = config['allowed_chat_id']
@@ -32,22 +33,24 @@ api = remote.API(ha_url, ha_key, ha_port, ha_ssl)
 print(remote.validate_api(api))
 
 # this prints out all the HASS services - mostly here for testing atm
-print('-- Available services:')
-services = remote.get_services(api)
-for service in services:
-    print(service['domain'])
-    print(service['services'])
+#print('-- Available services:')
+#services = remote.get_services(api)
+#for service in services:
+#    print(service['domain'])
+#    print(service['services'])
 
 # instance the Telegram bot
 bot = telepot.Bot(bot_token)
 
 # calls the HASS API to get the state of an entity
 # need to change this so you can pass in entity type so we can get the right attributes for display
-def get_state (entity_id):
+def get_state (entity_id, readable):
   print(entity_id)
   entity = remote.get_state(api, entity_id)
-  state = format('{} is {}.'.format(entity.attributes['friendly_name'], entity.state))
-
+  if (readable == 'true'):
+    state = format('{} is {}.'.format(entity.attributes['friendly_name'], entity.state))
+  else:
+    state = entity.state
   print(state)
   return state
 
@@ -105,7 +108,7 @@ def handle(msg):
           bot.sendMessage(chat_id,"Pick a domain....",reply_markup=replymarkup)
       elif command == '/favstates':
           for s in fav_entities:
-            state = get_state(s)
+            state = get_state(s,'true')
             bot.sendMessage(chat_id, state)
       elif command == '/armhome':
           payload = {'code': ha_alarm_code}
@@ -120,12 +123,19 @@ def handle(msg):
           service_call('alarm_control_panel','alarm_disarm',payload)
           bot.sendMessage(chat_id, 'You are welcome!')
       elif command == '/alarm':
+          # check the current state of the alarm so we can decide what options to show
+          alarm_state = get_state(ha_alarm_entity,'false')
+          if (alarm_state == 'disarmed'):
+            keyboard = [[{"text":"/armhome"}], [{"text":"/armaway"}]]
+          else:
+            keyboard = [[{"text":"/disarm"}]]
+
           replymarkup = {
-            "keyboard": [[{"text":"/disarm"}], [{"text":"/armhome"}], [{"text":"/armaway"}]],
+            "keyboard": keyboard,
             "resize_keyboard": True,
             "one_time_keyboard": True
           }
-          bot.sendMessage(chat_id, 'Please choose an alarm option...',reply_markup=replymarkup)
+          bot.sendMessage(chat_id, 'Alarm currently ' + alarm_state + '.\nPlease choose an option:',reply_markup=replymarkup)
       elif command == '/menu':
           replymarkup = {
             "keyboard": [[{"text":"/alarm"}], [{"text":"/favstates"}], [{"text":"/roll"}]],

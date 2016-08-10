@@ -18,6 +18,7 @@ ha_url = "<hass host - no http/htts>"
 ha_key = "<you api password if any>"
 ha_port = "<hass port>"
 ha_ssl = "<true or false, depending on whether you are running ssl or not>"
+ha_alarm_entity = "<e.g. alarm_control_panel.ha_alarm>"
 ha_alarm_code = "<the alarm code you use for the alarm_control_panel component>"
 bot_token = "<the token for your Telegram bot>"
 allowed_chat_id = "<chat id from the Telegram chat in which you are talking to your bot>"
@@ -42,7 +43,7 @@ Currrent commands are
 /refreshservices (refreshes the list of domains/services from HASS)
 /domains (lists the current HASS domains)
 /browsedomains (presents the domains as a custom keyboard - start of dynamic browsing)
-/alarm (brings up a custom keyboard of alarm controls)
+/alarm (brings up a custom keyboard of alarm controls, based on alarm state)
 /alarmhome
 /alarmaway
 /disarm
