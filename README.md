@@ -23,6 +23,7 @@ ha_alarm_code = "<the alarm code you use for the alarm_control_panel component>"
 bot_token = "<the token for your Telegram bot>"
 allowed_chat_ids = "<list of Telegram chat ids in which you are talking to your bot>"
 fav_entities = "<space separated list of favourite entities (used by /favstates)>"
+show_maps = "<true or false whether you want maps to show for device locations>"
 ```
 
 Then you can run the bot with

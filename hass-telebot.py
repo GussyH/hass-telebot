@@ -27,6 +27,7 @@ bot_token = config['bot_token']
 allowed_chat_ids = config['allowed_chat_ids']
 fav_entities = config['fav_entities']
 fav_entities = fav_entities.split()
+show_maps = config['show_maps']
 
 # instance the API connection to HASS
 api = remote.API(ha_url, ha_key, ha_port, ha_ssl)
@@ -56,9 +57,8 @@ def get_state (entity_id, readable):
   
 # sends the location from any entity
 def send_location(chat_id, entity_id):
-  print(entity_id)
   entity = remote.get_state(api, entity_id)
-  if (entity.state != 'home' and
+  if (show_maps == 'true' and entity.state != 'home' and
       'latitude' in entity.attributes and
       'longitude' in entity.attributes):  
     latitude = float(entity.attributes['latitude'])
