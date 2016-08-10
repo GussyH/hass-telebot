@@ -1,6 +1,6 @@
 # hass-telebot
 Bot for the Telegram messaging platform providing an interface to the Home Assistant automation system
-Built using Telepot (http://telepot.readthedocs.io/en/latest/)
+Built using Telepot (http://telepot.readthedocs.io/en/latest/). That doc has instuctions for creating your bot and talking to it for the first time to get chat ids.
 
 ## Instructions
 
