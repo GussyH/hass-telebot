@@ -18,6 +18,7 @@ ha_ssl = "<true or false, depending on whether you are running ssl or not>"
 ha_alarm_code = "<the alarm code you use for the alarm_control_panel component>"
 bot_token = "<the token for your Telegram bot>"
 allowed_chat_id = "<chat id from the Telegram chat in which you are talking to your bot>"
+fav_entities = "<space separated list of favourite entities (used by /favstates)>"
 ```
 
 Then you can run the bot with
@@ -33,7 +34,7 @@ The bot will only respond to you if you are talking to it in the specified chat 
 Currrent commands are
 ```
 /roll
-/states
+/favstates (tells you the state of your favourite entities)
 /menu (brings up a custom keyboard of the other commands)
 /refreshservices (refreshes the list of domains/services from HASS)
 /domains (lists the current HASS domains)
