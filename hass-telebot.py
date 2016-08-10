@@ -128,7 +128,7 @@ def handle(msg):
           bot.sendMessage(chat_id, 'Please choose an alarm option...',reply_markup=replymarkup)
       elif command == '/menu':
           replymarkup = {
-            "keyboard": [[{"text":"/alarm"}], [{"text":"/states"}], [{"text":"/roll"}]],
+            "keyboard": [[{"text":"/alarm"}], [{"text":"/favstates"}], [{"text":"/roll"}]],
             "resize_keyboard": True,
             "one_time_keyboard": True
           }
