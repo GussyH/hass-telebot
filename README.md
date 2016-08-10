@@ -21,7 +21,7 @@ ha_ssl = "<true or false, depending on whether you are running ssl or not>"
 ha_alarm_entity = "<e.g. alarm_control_panel.ha_alarm>"
 ha_alarm_code = "<the alarm code you use for the alarm_control_panel component>"
 bot_token = "<the token for your Telegram bot>"
-allowed_chat_id = "<chat id from the Telegram chat in which you are talking to your bot>"
+allowed_chat_ids = "<list of Telegram chat ids in which you are talking to your bot>"
 fav_entities = "<space separated list of favourite entities (used by /favstates)>"
 ```
 

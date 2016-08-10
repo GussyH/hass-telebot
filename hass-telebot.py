@@ -24,7 +24,7 @@ ha_ssl = config['ha_ssl']
 ha_alarm_entity = config['ha_alarm_entity']
 ha_alarm_code = config['ha_alarm_code']
 bot_token = config['bot_token']
-allowed_chat_id = config['allowed_chat_id']
+allowed_chat_ids = config['allowed_chat_ids']
 fav_entities = config['fav_entities']
 fav_entities = fav_entities.split()
 
@@ -58,7 +58,7 @@ def get_state (entity_id, readable):
 def send_location(chat_id, entity_id):
   print(entity_id)
   entity = remote.get_state(api, entity_id)
-  if (entity.state == 'not_home' and
+  if (entity.state != 'home' and
       'latitude' in entity.attributes and
       'longitude' in entity.attributes):  
     latitude = float(entity.attributes['latitude'])
@@ -85,7 +85,7 @@ def handle(msg):
     print(content_type, chat_type, chat_id)
 
     # we only want to process text messages from our specified chat
-    if (content_type == 'text') and (chat_id == int(allowed_chat_id)):
+    if (content_type == 'text') and (str(chat_id) in allowed_chat_ids):
       command = msg['text']
 
       print(command)
