@@ -55,7 +55,9 @@ def get_state (entity_id):
 def send_location(chat_id, entity_id):
   print(entity_id)
   entity = remote.get_state(api, entity_id)
-  if 'latitude' in entity.attributes and 'longitude' in entity.attributes:  
+  if (entity.state == 'not_home' and
+      'latitude' in entity.attributes and
+      'longitude' in entity.attributes):  
     latitude = float(entity.attributes['latitude'])
     longitude = float(entity.attributes['longitude'])
 
