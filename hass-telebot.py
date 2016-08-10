@@ -50,6 +50,17 @@ def get_state (entity_id):
 
   print(state)
   return state
+  
+# sends the location from any entity
+def send_location(chat_id, entity_id):
+  print(entity_id)
+  entity = remote.get_state(api, entity_id)
+  if 'latitude' in entity.attributes and 'longitude' in entity.attributes:  
+    latitude = float(entity.attributes['latitude'])
+    longitude = float(entity.attributes['longitude'])
+
+    bot.sendLocation(chat_id=chat_id,
+                     latitude=latitude, longitude=longitude)
 
 # calls a HASS service
 def service_call (domain, service, payload):
@@ -107,6 +118,7 @@ def handle(msg):
           for s in fav_entities:
             state = get_state(s)
             bot.sendMessage(chat_id, state)
+            send_location(chat_id, s)
       elif command == '/armhome':
           payload = {'code': ha_alarm_code}
           service_call('alarm_control_panel','alarm_arm_home',payload)
