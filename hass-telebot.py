@@ -34,11 +34,11 @@ api = remote.API(ha_url, ha_key, ha_port, ha_ssl)
 print(remote.validate_api(api))
 
 # this prints out all the HASS services - mostly here for testing atm
-#print('-- Available services:')
-#services = remote.get_services(api)
-#for service in services:
-#    print(service['domain'])
-#    print(service['services'])
+print('-- Available Domains/Services:')
+services = remote.get_services(api)
+for service in services:
+    print(service['domain'])
+    print(service['services'])
 
 # instance the Telegram bot
 bot = telepot.Bot(bot_token)
