@@ -157,7 +157,7 @@ def handle(msg):
             "one_time_keyboard": True
           }
           bot.sendMessage(chat_id, 'Please choose an option...',reply_markup=replymarkup)
-    else:
+    elif (content_type == 'text') and (str(chat_id) not in allowed_chat_ids):
         bot.sendMessage(chat_id, 'You are not authorised to chat with me!')
 
 bot.message_loop(handle)
