@@ -14,7 +14,7 @@ pip3.5 install -r requirements.txt
 Create hass-telebot.cfg with entries as follows:
 
 ```
-ha_url = "<hass host/ip - no http/htts>"
+ha_url = "<hass host/ip - no http/https>"
 ha_key = "<you api password if any>"
 ha_port = "<hass port>"
 ha_ssl = "<true or '', depending on whether you are running ssl or not>"
